@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laxman Dhakal | Web Developer</title>
+    <meta
+      name="description"
+      content="Laxman Dhakal - Web Developer and IT Professional specializing in modern React and web development."
+    />
+    <meta property="og:title" content="Laxman Dhakal | Web Developer" />
+    <meta property="og:description" content="Premium React portfolio for Laxman Dhakal, built with modern animations, responsive design and dark mode." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://your-portfolio.example.com" />
+    <meta property="og:image" content="/ld.png" />
+    <link rel="icon" type="image/png" href="/ld.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      (function () {
+        try {
+          const storedTheme = localStorage.getItem('theme');
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          const theme = storedTheme || systemTheme;
+          document.documentElement.classList.toggle('dark', theme === 'dark');
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

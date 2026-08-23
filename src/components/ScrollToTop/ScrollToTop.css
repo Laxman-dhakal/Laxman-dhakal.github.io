@@ -1,0 +1,18 @@
+.scroll-top {
+  position: fixed;
+  right: 24px;
+  bottom: 28px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.scroll-top:hover {
+  transform: translateY(-2px);
+}

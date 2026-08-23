@@ -1,0 +1,87 @@
+.testimonials-section {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.testimonial-shell {
+  padding: 32px;
+  border-radius: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.testimonial-card {
+  display: grid;
+  gap: 24px;
+}
+
+.testimonial-user {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.testimonial-user img {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.testimonial-user h3 {
+  margin: 0;
+}
+
+.testimonial-user p {
+  margin: 6px 0 0;
+  color: var(--text-secondary);
+}
+
+.testimonial-rating {
+  display: flex;
+  gap: 8px;
+  color: var(--primary);
+}
+
+.testimonial-text {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  font-size: 1.05rem;
+}
+
+.testimonial-controls {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.testimonial-controls button {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: grid;
+  place-items: center;
+  color: var(--text-primary);
+}
+
+.testimonial-dots {
+  display: flex;
+  gap: 10px;
+}
+
+.testimonial-dots button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.2);
+  border: none;
+}
+
+.testimonial-dots button.active {
+  background: var(--primary);
+}
