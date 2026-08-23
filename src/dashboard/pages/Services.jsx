@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './DashboardPages.css';
 import { getSiteContent, saveSiteContent } from '../../services/siteContentService';
+import { deleteAdminCollectionItem, getAdminCollection, saveAdminCollectionItem } from '../../services/firebaseDataService';
 
 const defaultForm = { title: '', description: '', price: 'Starting at $500', icon: 'FaCode' };
 
@@ -10,6 +11,12 @@ const Services = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState(defaultForm);
+
+  useEffect(() => {
+    getAdminCollection('services').then((remoteServices) => {
+      if (remoteServices?.length) setServices(remoteServices);
+    });
+  }, []);
 
   const persistServices = (nextServices) => {
     setServices(nextServices);
@@ -28,9 +35,11 @@ const Services = () => {
     if (editingId !== null) {
       const updatedServices = services.map((item) => item.id === editingId ? { ...item, title: form.title.trim(), description: form.description.trim(), price: form.price, icon: form.icon } : item);
       persistServices(updatedServices);
+      saveAdminCollectionItem('services', { ...updatedServices.find((item) => item.id === editingId) });
     } else {
       const nextServices = [{ id: Date.now(), title: form.title.trim(), description: form.description.trim(), icon: form.icon, price: form.price }, ...services];
       persistServices(nextServices);
+      saveAdminCollectionItem('services', nextServices[0]);
     }
 
     resetForm();
@@ -40,6 +49,7 @@ const Services = () => {
   const handleDelete = (serviceId) => {
     const nextServices = services.filter((item) => item.id !== serviceId);
     persistServices(nextServices);
+    deleteAdminCollectionItem('services', serviceId);
     if (editingId === serviceId) resetForm();
   };
 

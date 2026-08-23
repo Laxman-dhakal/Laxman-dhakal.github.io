@@ -1,0 +1,93 @@
+.quick-contact {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.quick-contact-menu {
+  display: grid;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  transform-origin: bottom right;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.quick-contact.is-open .quick-contact-menu {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.quick-contact-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-width: 148px;
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background: #0b1220;
+  color: #f8fafc;
+  box-shadow: 0 14px 32px rgba(2, 6, 23, 0.2);
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.quick-contact-item:hover {
+  transform: translateX(-4px);
+  filter: brightness(1.15);
+}
+
+.quick-contact-item svg { font-size: 1rem; }
+.quick-contact-item.phone svg { color: #4ade80; }
+.quick-contact-item.whatsapp svg { color: #25d366; }
+.quick-contact-item.email svg { color: #67e8f9; }
+.quick-contact-item.video svg { color: #c4b5fd; }
+
+.quick-contact-toggle {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(99, 102, 241, 0.35), 0 0 0 7px rgba(99, 102, 241, 0.1);
+  font-size: 1.15rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.quick-contact-toggle:hover {
+  transform: translateY(-3px) rotate(4deg);
+  box-shadow: 0 20px 42px rgba(6, 182, 212, 0.35), 0 0 0 9px rgba(99, 102, 241, 0.1);
+}
+
+@media (max-width: 640px) {
+  .quick-contact {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .quick-contact-toggle {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quick-contact-menu,
+  .quick-contact-toggle,
+  .quick-contact-item {
+    transition: none;
+  }
+}

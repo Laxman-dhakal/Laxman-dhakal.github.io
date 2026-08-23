@@ -1,7 +1,7 @@
 .ai-copilot {
   position: fixed;
   right: 22px;
-  bottom: 22px;
+  bottom: 96px;
   z-index: 60;
 }
 
@@ -164,7 +164,7 @@
 @media (max-width: 640px) {
   .ai-copilot {
     right: 12px;
-    bottom: 12px;
+    bottom: 80px;
   }
 
   .ai-copilot-toggle {

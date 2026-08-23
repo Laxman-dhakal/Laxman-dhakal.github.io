@@ -5,6 +5,8 @@ import { getSiteContent } from '../../services/siteContentService';
 import useTypingEffect from '../../hooks/useTypingEffect';
 import './Hero.css';
 
+const onlineClassUrl = import.meta.env.VITE_ONLINE_CLASS_URL || '/online-class';
+
 const Hero = () => {
   const siteContent = getSiteContent();
   const rolePhrases = Array.isArray(siteContent.hero.roles) && siteContent.hero.roles.length
@@ -42,6 +44,7 @@ const Hero = () => {
           <div className="hero-actions">
             <a href="#portfolio" className="button primary">{siteContent.hero.primaryCta}</a>
             <a href="#contact" className="button secondary">{siteContent.hero.secondaryCta}</a>
+            <a href={onlineClassUrl} className="button secondary">Online Class</a>
           </div>
 
           <div className="hero-feature-list" aria-label="Core strengths">

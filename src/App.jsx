@@ -14,6 +14,7 @@ import ProjectDetails from './pages/ProjectDetails';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 const Blog = lazy(() => import('./pages/Blog'));
+import OnlineClass from './pages/OnlineClass';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Login from './pages/Login.jsx';
@@ -80,6 +81,7 @@ function App() {
               <Route path="contact" element={<Contact />} />
               <Route path="blog" element={<Suspense fallback={<div className="route-loading">Loading blog...</div>}><Blog /></Suspense>} />
               <Route path="blog/:slug" element={<Suspense fallback={<div className="route-loading">Loading article...</div>}><Blog /></Suspense>} />
+              <Route path="online-class" element={<OnlineClass />} />
               <Route path="privacy" element={<Privacy />} />
               <Route path="terms" element={<Terms />} />
             </Route>

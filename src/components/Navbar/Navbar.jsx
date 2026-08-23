@@ -16,6 +16,7 @@ const navLinks = [
   { id: 'blog', label: 'Blog' },
   { id: 'contact', label: 'Contact' }
 ];
+const onlineClassUrl = import.meta.env.VITE_ONLINE_CLASS_URL || '/online-class';
 
 const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -106,6 +107,7 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
           <Link to="/login" className="button secondary navbar-admin">
             Admin
           </Link>
+          <a href={onlineClassUrl} className="button secondary navbar-class">Online Class</a>
           <a href="#contact" className="button primary navbar-cta">
             Hire Me
           </a>
@@ -135,6 +137,11 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
               </button>
             </motion.li>
           ))}
+          <motion.li variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}>
+            <a href={onlineClassUrl} className="mobile-admin-link" onClick={() => setMenuOpen(false)}>
+              Online Class
+            </a>
+          </motion.li>
           <motion.li variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}>
             <Link to="/login" className="mobile-admin-link" onClick={() => setMenuOpen(false)}>
               Admin Login

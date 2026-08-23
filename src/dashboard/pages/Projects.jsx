@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './DashboardPages.css';
 import { getSiteContent, saveSiteContent } from '../../services/siteContentService';
+import { deleteAdminCollectionItem, getAdminCollection, saveAdminCollectionItem } from '../../services/firebaseDataService';
 
 const defaultForm = { title: '', category: 'React', status: 'Draft', description: '', image: '' };
 
@@ -13,9 +14,16 @@ const Projects = () => {
   const [form, setForm] = useState(defaultForm);
   const [editingId, setEditingId] = useState(null);
 
+  useEffect(() => {
+    getAdminCollection('projects').then((remoteProjects) => {
+      if (remoteProjects?.length) setProjectList(remoteProjects);
+    });
+  }, []);
+
   const persistProjects = (nextProjects) => {
     setProjectList(nextProjects);
     saveSiteContent({ ...getSiteContent(), projects: nextProjects });
+    return nextProjects;
   };
 
   const filtered = useMemo(() => {
@@ -53,9 +61,11 @@ const Projects = () => {
     if (editingId !== null) {
       const updatedProjects = projectList.map((item) => item.id === editingId ? { ...item, ...projectPayload, id: editingId } : item);
       persistProjects(updatedProjects);
+      saveAdminCollectionItem('projects', { ...projectPayload, id: editingId });
     } else {
       const nextProjects = [{ id: Date.now(), ...projectPayload }, ...projectList];
       persistProjects(nextProjects);
+      saveAdminCollectionItem('projects', nextProjects[0]);
     }
 
     resetForm();
@@ -65,6 +75,7 @@ const Projects = () => {
   const handleDelete = (projectId) => {
     const nextProjects = projectList.filter((item) => item.id !== projectId);
     persistProjects(nextProjects);
+    deleteAdminCollectionItem('projects', projectId);
     if (editingId === projectId) resetForm();
   };
 

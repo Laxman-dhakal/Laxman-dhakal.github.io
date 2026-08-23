@@ -1,4 +1,35 @@
-# Getting Started with Create React App
+# Laxman Dhakal Portfolio
+
+## Firebase setup
+
+1. Open [Firebase Console](https://console.firebase.google.com/) and create a project.
+2. Add a Web app from Project settings and copy its configuration values.
+3. Enable **Authentication** and activate Email/Password sign-in.
+4. Create a **Firestore Database** in production mode.
+5. Enable **Storage** if you want to upload media from the admin dashboard.
+6. Create `.env.local` in the project root and add:
+
+```env
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+```
+
+Restart the Vite server after changing `.env.local`. The Firebase web configuration is safe to include in a frontend build, but Firestore and Storage security rules must restrict write access to authenticated admins.
+
+The admin data layer uses these collections:
+
+- `projects`
+- `services`
+- `contactMessages`
+- `classMessages`
+
+The project includes a guarded local fallback when Firebase variables are not configured.
+
+## Available scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

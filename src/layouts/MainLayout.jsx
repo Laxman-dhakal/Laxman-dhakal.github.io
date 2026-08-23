@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import ScrollToTop from '../components/ScrollToTop/ScrollToTop';
 import AICopilot from '../components/AICopilot/AICopilot';
 import InstallPrompt from '../components/InstallPrompt/InstallPrompt';
+import QuickContact from '../components/QuickContact/QuickContact';
 
 const MainLayout = ({ theme, toggleTheme, mounted, scrollY }) => (
   <>
@@ -11,6 +12,7 @@ const MainLayout = ({ theme, toggleTheme, mounted, scrollY }) => (
     <ScrollToTop />
     <AICopilot />
     <InstallPrompt />
+    <QuickContact />
   </>
 );
 

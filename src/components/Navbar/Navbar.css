@@ -141,6 +141,12 @@
   white-space: nowrap;
 }
 
+.navbar-class {
+  white-space: nowrap;
+  border-color: rgba(34, 211, 238, 0.25);
+  color: var(--primary);
+}
+
 .menu-toggle {
   display: none;
 }
@@ -159,6 +165,10 @@
   }
 
   .navbar-cta {
+    display: none;
+  }
+
+  .navbar-class {
     display: none;
   }
 
