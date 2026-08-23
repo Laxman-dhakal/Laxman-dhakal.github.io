@@ -33,7 +33,7 @@ const Services = () => {
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
                 <button type="button" className="service-cta" aria-label={`Learn more about ${item.title}`}>
-                  Discover
+                  Discover <span>→</span>
                 </button>
               </motion.article>
             );

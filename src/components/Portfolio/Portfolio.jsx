@@ -9,12 +9,17 @@ const categories = ['All', 'Web', 'React', 'Design', 'Application'];
 
 const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedProject, setSelectedProject] = useState(null);
 
   const projects = useMemo(() => {
-    if (activeCategory === 'All') return projectsData;
-    return projectsData.filter((project) => project.category === activeCategory);
-  }, [activeCategory]);
+    const query = searchTerm.trim().toLowerCase();
+    return projectsData.filter((project) => {
+      const matchesCategory = activeCategory === 'All' || project.category === activeCategory;
+      const searchableText = [project.title, project.description, project.category, ...(project.technologies || [])].join(' ').toLowerCase();
+      return matchesCategory && (!query || searchableText.includes(query));
+    });
+  }, [activeCategory, searchTerm]);
 
   return (
     <section className="portfolio-section" id="portfolio">
@@ -32,10 +37,16 @@ const Portfolio = () => {
               className={category === activeCategory ? 'active' : ''}
               aria-label={`Show ${category} projects`}
             >
-              {category}
+              <span>{category}</span>
+              <small>{category === 'All' ? projectsData.length : projectsData.filter((project) => project.category === category).length}</small>
             </button>
           ))}
+          <label className="portfolio-search">
+            <span className="sr-only">Search projects</span>
+            <input value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Search projects..." />
+          </label>
         </div>
+        <p className="portfolio-result-count">Showing {projects.length} of {projectsData.length} projects</p>
         <motion.div className="portfolio-grid" variants={staggerContainer} initial="hidden" animate="visible">
           {projects.map((project) => (
             <motion.article key={project.id} className="portfolio-card" variants={fadeUp} whileHover={{ y: -6 }}>
@@ -58,6 +69,7 @@ const Portfolio = () => {
             </motion.article>
           ))}
         </motion.div>
+        {!projects.length && <div className="portfolio-empty">No projects match your search.</div>}
       </div>
 
       <AnimatePresence>{selectedProject && <PortfolioModal project={selectedProject} onClose={() => setSelectedProject(null)} />}</AnimatePresence>

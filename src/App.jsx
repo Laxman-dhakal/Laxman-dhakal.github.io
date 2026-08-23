@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import useTheme from './hooks/useTheme';
 import useScrollPosition from './hooks/useScrollPosition';
 import { AuthProvider } from './auth/AuthContext.jsx';
@@ -13,6 +13,7 @@ import Portfolio from './pages/Portfolio';
 import ProjectDetails from './pages/ProjectDetails';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
+const Blog = lazy(() => import('./pages/Blog'));
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Login from './pages/Login.jsx';
@@ -35,6 +36,17 @@ import Settings from './dashboard/pages/Settings.jsx';
 import Notifications from './dashboard/pages/Notifications.jsx';
 import Activity from './dashboard/pages/Activity.jsx';
 import Preloader from './components/Preloader/Preloader';
+import { trackPageView } from './services/analyticsService';
+
+function AnalyticsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(`${location.pathname}${location.search}`);
+  }, [location.pathname, location.search]);
+
+  return null;
+}
 
 function App() {
   const { theme, toggleTheme, mounted } = useTheme();
@@ -56,6 +68,7 @@ function App() {
       <AnimatePresence>{isLoading && <Preloader />}</AnimatePresence>
       <AuthProvider>
         <Router>
+          <AnalyticsTracker />
           <Routes>
             <Route path="/" element={<MainLayout theme={theme} toggleTheme={toggleTheme} mounted={mounted} scrollY={scrollY} />}>
               <Route index element={<Home />} />
@@ -65,6 +78,8 @@ function App() {
               <Route path="portfolio/:id" element={<ProjectDetails />} />
               <Route path="faq" element={<FAQ />} />
               <Route path="contact" element={<Contact />} />
+              <Route path="blog" element={<Suspense fallback={<div className="route-loading">Loading blog...</div>}><Blog /></Suspense>} />
+              <Route path="blog/:slug" element={<Suspense fallback={<div className="route-loading">Loading article...</div>}><Blog /></Suspense>} />
               <Route path="privacy" element={<Privacy />} />
               <Route path="terms" element={<Terms />} />
             </Route>

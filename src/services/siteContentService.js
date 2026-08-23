@@ -1,4 +1,35 @@
 const STORAGE_KEY = 'laxman_portfolio_site_content';
+const suspiciousContentPattern = /xina|china|geirako|geriako|giriako|中文|汉字|你好|[\u3400-\u9FFF]/i;
+
+const sanitizeText = (value, fallback) => {
+  if (typeof value !== 'string') return fallback;
+  const trimmed = value.trim();
+  if (!trimmed) return fallback;
+  if (suspiciousContentPattern.test(trimmed)) return fallback;
+  return trimmed;
+};
+
+const sanitizeHero = (hero = {}) => {
+  const safeHero = {
+    ...defaultSiteContent.hero,
+    ...(hero || {})
+  };
+
+  safeHero.title = sanitizeText(hero?.title, defaultSiteContent.hero.title);
+  safeHero.subtitle = sanitizeText(hero?.subtitle, defaultSiteContent.hero.subtitle);
+  safeHero.description = sanitizeText(hero?.description, defaultSiteContent.hero.description);
+  safeHero.primaryCta = sanitizeText(hero?.primaryCta, defaultSiteContent.hero.primaryCta);
+  safeHero.secondaryCta = sanitizeText(hero?.secondaryCta, defaultSiteContent.hero.secondaryCta);
+
+  safeHero.roles = Array.isArray(hero?.roles) && hero.roles.length
+    ? hero.roles
+        .filter((role) => typeof role === 'string' && role.trim())
+        .map((role) => sanitizeText(role, defaultSiteContent.hero.roles[0]))
+        .filter((role) => !!role)
+    : defaultSiteContent.hero.roles;
+
+  return safeHero;
+};
 
 const defaultProjects = [
   {
@@ -90,10 +121,10 @@ const defaultFaqs = [
 
 const defaultSiteContent = {
   hero: {
-    title: "Hi, I'm Laxman Dhakal",
+    title: "Hi, I'm Er.Laxman Dhakal",
     subtitle: 'Web Developer',
     roles: ['Web Developer', 'React Developer', 'UI/UX Enthusiast', 'IT Professional'],
-    description: 'I build modern, scalable and user-friendly digital experiences for the web.',
+    description: 'I design and build premium, responsive web experiences that look sharp, feel smooth, and convert visitors into customers.',
     primaryCta: 'View My Work',
     secondaryCta: "Let's Talk",
     image: new URL('../../image/cover home.png', import.meta.url).href
@@ -119,11 +150,11 @@ const defaultSiteContent = {
     subtitle: 'A collection of projects, applications and digital experiences.'
   },
   contact: {
-    title: "Let's Work Together",
-    description: 'Ready to discuss your next project? Send a message and I’ll get back to you with a polished proposal.',
-    email: 'your-email@example.com',
-    phone: '+977-98XXXXXXXX',
-    location: 'Nepalgunj, Nepal'
+    title: "Let's Build Something Exceptional",
+    description: 'Need a premium digital presence, a polished product interface, or a conversion-focused web experience? Let’s shape your next idea into something memorable and measurable.',
+    email: 'laxmandhakal000@gmail.com',
+    phone: '+977-9768458058',
+    location: 'Nepalgunj, Banke, Nepal'
   },
   projects: defaultProjects,
   servicesCatalog: defaultServicesCatalog,
@@ -177,13 +208,7 @@ const readStoredContent = () => {
     return {
       ...defaultSiteContent,
       ...parsed,
-      hero: {
-        ...defaultSiteContent.hero,
-        ...(parsed.hero || {}),
-        roles: Array.isArray(parsed.hero?.roles) && parsed.hero.roles.length
-          ? parsed.hero.roles
-          : defaultSiteContent.hero.roles
-      },
+      hero: sanitizeHero(parsed.hero),
       about: { ...defaultSiteContent.about, ...(parsed.about || {}) },
       services: { ...defaultSiteContent.services, ...(parsed.services || {}) },
       portfolio: { ...defaultSiteContent.portfolio, ...(parsed.portfolio || {}) },
@@ -207,13 +232,7 @@ export const saveSiteContent = (content) => {
   const safeContent = {
     ...defaultSiteContent,
     ...content,
-    hero: {
-      ...defaultSiteContent.hero,
-      ...(content.hero || {}),
-      roles: Array.isArray(content.hero?.roles) && content.hero.roles.length
-        ? content.hero.roles
-        : defaultSiteContent.hero.roles
-    },
+    hero: sanitizeHero(content.hero),
     about: { ...defaultSiteContent.about, ...(content.about || {}) },
     services: { ...defaultSiteContent.services, ...(content.services || {}) },
     portfolio: { ...defaultSiteContent.portfolio, ...(content.portfolio || {}) },

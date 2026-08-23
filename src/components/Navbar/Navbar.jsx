@@ -13,12 +13,16 @@ const navLinks = [
   { id: 'experience', label: 'Experience' },
   { id: 'portfolio', label: 'Portfolio' },
   { id: 'faq', label: 'FAQ' },
+  { id: 'blog', label: 'Blog' },
   { id: 'contact', label: 'Contact' }
 ];
 
 const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('home');
+  const scrollProgress = typeof document === 'undefined'
+    ? 0
+    : Math.min((scrollY / Math.max(document.documentElement.scrollHeight - window.innerHeight, 1)) * 100, 100);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,12 +64,15 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
       animate="visible"
       variants={fadeRight}
     >
+      <span className="navbar-progress" aria-hidden="true">
+        <span style={{ width: `${scrollProgress}%` }} />
+      </span>
       <div className="navbar-inner container">
         <a href="#home" className="navbar-brand" onClick={() => handleNavigate('home')}>
           <span className="navbar-logo-shell">
-            <img src={new URL('../../../image/ld.png', import.meta.url).href} alt="Laxman logo" className="navbar-logo" />
+            <img src={new URL('../../../image/logo.png', import.meta.url).href} alt="Laxman logo" className="navbar-logo" />
           </span>
-          <span className="brand-text">Laxman.</span>
+          <span className="brand-text">Laxman</span>
         </a>
 
         <nav className={`navbar-links ${menuOpen ? 'open' : ''}`} aria-label="Primary navigation">

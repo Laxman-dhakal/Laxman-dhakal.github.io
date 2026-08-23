@@ -8,11 +8,13 @@ import { fadeUp } from '../motion/variants';
 const ProjectDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const projectsData = getSiteContent().projects;
+  const projectsData = Array.isArray(getSiteContent().projects) ? getSiteContent().projects : [];
+  const normalizedId = String(id ?? '').trim();
+
   const project = useMemo(() => {
-    if (!id) return undefined;
-    return projectsData.find((item) => String(item.id) === String(id));
-  }, [id, projectsData]);
+    if (!normalizedId) return undefined;
+    return projectsData.find((item) => String(item?.id ?? '').trim() === normalizedId);
+  }, [normalizedId, projectsData]);
 
   if (!project) {
     return (
@@ -28,11 +30,11 @@ const ProjectDetails = () => {
   }
 
   const overview = project.fullDescription || project.description || 'A detailed project overview is not available yet.';
-  const features = project.features?.length ? project.features : ['Responsive layout', 'Modern design', 'Strong user experience'];
-  const technologies = project.technologies?.length ? project.technologies : ['React', 'JavaScript', 'Responsive Design'];
+  const features = Array.isArray(project.features) && project.features.length ? project.features : ['Responsive layout', 'Modern design', 'Strong user experience'];
+  const technologies = Array.isArray(project.technologies) && project.technologies.length ? project.technologies : ['React', 'JavaScript', 'Responsive Design'];
   const year = project.year || new Date().getFullYear();
-  const liveUrl = project.liveUrl || '#';
-  const githubUrl = project.githubUrl || '#';
+  const liveUrl = project.liveUrl && project.liveUrl !== '#' ? project.liveUrl : '';
+  const githubUrl = project.githubUrl && project.githubUrl !== '#' ? project.githubUrl : '';
 
   return (
     <main className="page-content">
@@ -63,8 +65,12 @@ const ProjectDetails = () => {
             </div>
           </div>
           <div className="project-detail-actions">
-            <a href={liveUrl} className="button primary" target="_blank" rel="noreferrer">Live Demo</a>
-            <a href={githubUrl} className="button secondary" target="_blank" rel="noreferrer">GitHub</a>
+            {liveUrl ? (
+              <a href={liveUrl} className="button primary" target="_blank" rel="noreferrer">Live Demo</a>
+            ) : null}
+            {githubUrl ? (
+              <a href={githubUrl} className="button secondary" target="_blank" rel="noreferrer">GitHub</a>
+            ) : null}
           </div>
           <button type="button" className="button secondary" onClick={() => navigate('/portfolio')}>
             Back to Portfolio

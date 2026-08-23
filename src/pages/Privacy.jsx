@@ -10,7 +10,7 @@ const Privacy = () => (
     <section className="container legal-page-copy">
       <p>Last updated: January 1, 2026</p>
       <h3>Introduction</h3>
-      <p>This privacy policy explains how Laxman Dhakal collects, uses and protects personal information.</p>
+      <p>This privacy policy explains how Er.Laxman Dhakal collects, uses and protects personal information.</p>
       <h3>Information Collection</h3>
       <p>Contact form entries and email correspondence are used only to respond to inquiries and project requests.</p>
       <h3>Use of Data</h3>

@@ -12,11 +12,11 @@ const hashValue = (value) => {
 const DEFAULT_ADMIN = {
   id: 'admin-default',
   role: 'admin',
-  fullName: 'Laxman Dhakal',
+  fullName: 'Er.Laxman Dhakal',
   email: 'admin@laxmandhakal.com',
   phone: '+977-9800000000',
   passwordHash: hashValue('Admin123'),
-  avatar: '/ld.png',
+  avatar: '/logo.png',
   joined: new Date().toISOString(),
   preferences: {
     theme: 'system',

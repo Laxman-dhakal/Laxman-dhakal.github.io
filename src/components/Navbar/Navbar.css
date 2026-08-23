@@ -8,6 +8,24 @@
   transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease, padding 0.35s ease;
 }
 
+.navbar-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: rgba(99, 102, 241, 0.12);
+  pointer-events: none;
+}
+
+.navbar-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--primary), var(--secondary));
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.65);
+  transition: width 0.18s ease-out;
+}
+
 .navbar-scrolled {
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(18px);
@@ -135,32 +153,71 @@
   .navbar-links {
     display: none;
   }
+
+  .navbar-actions {
+    gap: 10px;
+  }
+
+  .navbar-cta {
+    display: none;
+  }
+
   .menu-toggle {
     display: inline-flex;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
+  .navbar {
+    padding: 16px 0;
+  }
+
+  .navbar-inner {
+    gap: 12px;
+  }
+
+  .navbar-brand {
+    font-size: 1.05rem;
+    min-width: 0;
+  }
+
+  .brand-text {
+    white-space: nowrap;
+  }
+
+  .navbar-logo-shell {
+    width: 42px;
+    height: 42px;
+  }
+
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
   .navbar-mobile {
     display: block;
     position: absolute;
-    right: 24px;
+    right: 12px;
     top: 100%;
-    width: calc(100% - 48px);
+    width: calc(100% - 24px);
     pointer-events: none;
   }
+
   .mobile-menu {
     display: grid;
     gap: 18px;
-    padding: 28px 24px 32px;
-    margin-top: 10px;
+    padding: 24px 18px 28px;
+    margin-top: 8px;
     background: var(--surface);
-    border-radius: 28px;
+    border-radius: 24px;
     border: 1px solid var(--border);
     box-shadow: 0 30px 80px rgba(15, 23, 42, 0.08);
     pointer-events: auto;
   }
-  .mobile-menu button {
+
+  .mobile-menu button,
+  .mobile-admin-link {
     width: 100%;
     text-align: left;
     font-size: 1rem;

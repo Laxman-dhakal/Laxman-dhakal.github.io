@@ -13,7 +13,7 @@ const buildReply = (message) => {
   const text = String(message || '').toLowerCase();
 
   if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
-    return 'Hello! I’m your AI Copilot for Laxman Dhakal. I can help with services, portfolio work, contact details, and project availability.';
+    return 'Hello! I’m your AI Copilot for Er.Laxman Dhakal. I can help with services, portfolio work, contact details, and project availability.';
   }
 
   if (text.includes('service') || text.includes('offer') || text.includes('what do you do')) {

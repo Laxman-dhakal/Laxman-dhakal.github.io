@@ -11,8 +11,12 @@
     <meta property="og:title" content="Laxman Dhakal | Web Developer" />
     <meta property="og:description" content="Premium React portfolio for Laxman Dhakal, built with modern animations, responsive design and dark mode." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://your-portfolio.example.com" />
+    <meta property="og:url" content="https://dhakallaxman.com.np/" />
     <meta property="og:image" content="/ld.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#6366f1" />
+    <link rel="canonical" href="https://dhakallaxman.com.np/" />
+    <link rel="manifest" href="/manifest.json" />
     <link rel="icon" type="image/png" href="/ld.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,6 +24,20 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <script>
+      const personSchema = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Laxman Dhakal",
+        "jobTitle": "Web Developer",
+        "url": "https://dhakallaxman.com.np/",
+        "sameAs": ["https://github.com/Laxman-dhakal", "https://www.linkedin.com/in/laxman-dhakal-b24510430/"]
+      };
+      const schemaScript = document.createElement('script');
+      schemaScript.type = 'application/ld+json';
+      schemaScript.textContent = JSON.stringify(personSchema);
+      document.head.appendChild(schemaScript);
+    </script>
     <script>
       (function () {
         try {

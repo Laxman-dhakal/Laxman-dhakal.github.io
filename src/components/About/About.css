@@ -1,13 +1,24 @@
 .about-section {
   padding-top: 120px;
   padding-bottom: 120px;
+  position: relative;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at left center, rgba(99, 102, 241, 0.12), transparent 32%);
+  pointer-events: none;
 }
 
 .about-grid {
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
   gap: 80px;
-  align-items: start;
+  align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .about-photo {
@@ -15,6 +26,7 @@
   border-radius: 32px;
   border: 1px solid var(--border);
   max-height: 520px;
+  box-shadow: var(--shadow);
 }
 
 .about-photo img {
@@ -42,6 +54,7 @@
   line-height: 1.85;
   color: var(--text-secondary);
   max-width: 650px;
+  font-size: 1.02rem;
 }
 
 .about-text {
@@ -61,15 +74,25 @@
 .about-stat {
   padding: 22px 24px;
   border-radius: 24px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 46px rgba(15, 23, 42, 0.05);
+}
+
+.dark .about-stat {
+  background: rgba(15, 23, 42, 0.72);
 }
 
 .about-stat span {
   display: block;
-  font-size: 1.8rem;
+  font-size: clamp(1.6rem, 2vw, 2.1rem);
   font-weight: 800;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .about-stat p {
@@ -93,6 +116,7 @@
     padding-top: 100px;
     padding-bottom: 90px;
   }
+
   .about-stats {
     grid-template-columns: 1fr;
   }

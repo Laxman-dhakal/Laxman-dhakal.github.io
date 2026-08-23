@@ -1,11 +1,6 @@
+import { useEffect, useState } from 'react';
 import './DashboardPages.css';
-
-const overviewStats = [
-  { label: 'Monthly Visitors', value: '12,480', trend: '+18.2%' },
-  { label: 'Portfolio Views', value: '9,840', trend: '+9.6%' },
-  { label: 'New Messages', value: '42', trend: '+4 unread' },
-  { label: 'Conversions', value: '18', trend: '+6.1%' }
-];
+import { getAnalytics } from '../../services/analyticsService';
 
 const trafficBars = [
   { month: 'Jan', value: 42 },
@@ -19,6 +14,19 @@ const trafficBars = [
 ];
 
 const Analytics = () => {
+  const [analytics, setAnalytics] = useState(getAnalytics);
+
+  useEffect(() => {
+    setAnalytics(getAnalytics());
+  }, []);
+
+  const stats = [
+    { label: 'Total Visits', value: analytics.visits.toLocaleString(), trend: 'Live local tracking' },
+    { label: 'Page Views', value: analytics.pageViews.toLocaleString(), trend: 'Across all routes' },
+    { label: 'New Messages', value: analytics.messages.toLocaleString(), trend: 'Successful submissions' },
+    { label: 'Top Page', value: Object.entries(analytics.pages).sort((a, b) => b[1] - a[1])[0]?.[0] || '/', trend: 'Most viewed route' }
+  ];
+
   return (
     <div className="dashboard-page">
       <section className="dashboard-hero dashboard-hero-compact">
@@ -36,7 +44,7 @@ const Analytics = () => {
           <h3>Traffic summary</h3>
         </div>
         <div className="dashboard-grid analytics-grid">
-          {overviewStats.map((item) => (
+          {stats.map((item) => (
             <div className="info-card analytic-card" key={item.label}>
               <h4>{item.label}</h4>
               <p>{item.value}</p>

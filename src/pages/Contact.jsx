@@ -2,16 +2,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import { fadeUp } from '../motion/variants';
+import { sendContactMessage } from '../services/contactService';
+import { trackMessage } from '../services/analyticsService';
 
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: '' }));
+    setSubmitError('');
   };
 
   const validate = () => {
@@ -24,12 +29,22 @@ const Contact = () => {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validate()) return;
-    setSuccess(true);
-    setForm({ name: '', email: '', phone: '', subject: '', message: '' });
-    setTimeout(() => setSuccess(false), 3200);
+    setIsSubmitting(true);
+    setSubmitError('');
+    try {
+      await sendContactMessage(form);
+      trackMessage();
+      setSuccess(true);
+      setForm({ name: '', email: '', phone: '', subject: '', message: '' });
+      setTimeout(() => setSuccess(false), 3200);
+    } catch {
+      setSubmitError('Something went wrong. Please email me directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -43,9 +58,9 @@ const Contact = () => {
         <motion.div className="contact-details" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <div className="contact-card">
             <h3>Contact Information</h3>
-            <p>Email: your-email@example.com</p>
-            <p>Phone: +977-98XXXXXXXX</p>
-            <p>Location: Nepalgunj, Nepal</p>
+            <p>Email: laxmandhakal000@gmail.com</p>
+            <p>Phone: +977-9768458058</p>
+            <p>Location: Nepalgunj, Banke, Nepal</p>
             <p>Working Hours: Mon - Fri, 9:00 AM - 6:00 PM</p>
           </div>
         </motion.div>
@@ -80,7 +95,10 @@ const Contact = () => {
               <textarea name="message" rows="6" value={form.message} onChange={handleChange} aria-invalid={!!errors.message} />
               {errors.message && <span>{errors.message}</span>}
             </label>
-            <button type="submit" className="button primary">Submit</button>
+            {submitError && <p role="alert" className="contact-page-error">{submitError}</p>}
+            <button type="submit" className="button primary" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Submit'}
+            </button>
           </form>
         </motion.div>
       </section>
