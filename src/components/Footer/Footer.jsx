@@ -46,13 +46,13 @@ const Footer = () => {
         <motion.div className="footer-links" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="/#home">Home</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#services">Services</a></li>
+            <li><a href="/#portfolio">Portfolio</a></li>
             <li><a href="/blog">Blog</a></li>
             <li><a href="/online-class">Online Class</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="/#contact">Contact</a></li>
             <li><a href="/login">Admin</a></li>
           </ul>
         </motion.div>
@@ -79,7 +79,7 @@ const Footer = () => {
         <div className="footer-bottom-links">
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
-          <a href="#home" className="back-to-top"><FaArrowUp /> Back to top</a>
+          <a href="/#home" className="back-to-top"><FaArrowUp /> Back to top</a>
         </div>
       </div>
     </footer>

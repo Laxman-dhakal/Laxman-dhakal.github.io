@@ -38,6 +38,26 @@ import Notifications from './dashboard/pages/Notifications.jsx';
 import Activity from './dashboard/pages/Activity.jsx';
 import Preloader from './components/Preloader/Preloader';
 import { trackPageView } from './services/analyticsService';
+import NotFound from './pages/NotFound';
+
+function PageMetadata() {
+  const location = useLocation();
+  const titles = {
+    '/': 'Laxman Dhakal | Web Developer',
+    '/about': 'About | Laxman Dhakal',
+    '/services': 'Services | Laxman Dhakal',
+    '/portfolio': 'Portfolio | Laxman Dhakal',
+    '/blog': 'Blog | Laxman Dhakal',
+    '/online-class': 'Online Class | Laxman Dhakal',
+    '/contact': 'Contact | Laxman Dhakal'
+  };
+
+  useEffect(() => {
+    document.title = titles[location.pathname] || 'Laxman Dhakal | Web Developer';
+  }, [location.pathname]);
+
+  return null;
+}
 
 function AnalyticsTracker() {
   const location = useLocation();
@@ -66,10 +86,12 @@ function App() {
 
   return (
     <div className={`app-shell ${theme}`}>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <AnimatePresence>{isLoading && <Preloader />}</AnimatePresence>
       <AuthProvider>
         <Router>
           <AnalyticsTracker />
+          <PageMetadata />
           <Routes>
             <Route path="/" element={<MainLayout theme={theme} toggleTheme={toggleTheme} mounted={mounted} scrollY={scrollY} />}>
               <Route index element={<Home />} />
@@ -107,6 +129,7 @@ function App() {
                 <Route path="activity" element={<Activity />} />
               </Route>
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
       </AuthProvider>

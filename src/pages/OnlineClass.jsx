@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { FaVideo, FaCopy, FaCalendarAlt, FaWhatsapp, FaArrowRight, FaClock, FaUsers, FaDesktop, FaMicrophone, FaMicrophoneSlash, FaVideoSlash, FaPaperPlane } from 'react-icons/fa';
+import { FaVideo, FaCopy, FaCalendarAlt, FaWhatsapp, FaArrowRight, FaClock, FaUsers, FaDesktop, FaMicrophone, FaMicrophoneSlash, FaVideoSlash, FaPaperPlane, FaSignOutAlt } from 'react-icons/fa';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import './OnlineClass.css';
 
@@ -12,6 +12,7 @@ const OnlineClass = () => {
   const [microphoneEnabled, setMicrophoneEnabled] = useState(true);
   const [chatInput, setChatInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
+  const [mediaError, setMediaError] = useState('');
   const videoRef = useRef(null);
   const streamRef = useRef(null);
 
@@ -28,15 +29,29 @@ const OnlineClass = () => {
   useEffect(() => () => streamRef.current?.getTracks().forEach((track) => track.stop()), []);
 
   const startRoom = async () => {
-    if (!navigator.mediaDevices?.getUserMedia) return;
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setMediaError('Camera and microphone access is not supported in this browser.');
+      return;
+    }
     try {
+      setMediaError('');
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       streamRef.current = stream;
       videoRef.current.srcObject = stream;
       setRoomStarted(true);
     } catch {
       setRoomStarted(false);
+      setMediaError('Camera or microphone permission was denied. Check your browser settings and try again.');
     }
+  };
+
+  const leavePreview = () => {
+    streamRef.current?.getTracks().forEach((track) => track.stop());
+    streamRef.current = null;
+    if (videoRef.current) videoRef.current.srcObject = null;
+    setRoomStarted(false);
+    setCameraEnabled(true);
+    setMicrophoneEnabled(true);
   };
 
   const toggleTrack = (kind) => {
@@ -95,6 +110,13 @@ const OnlineClass = () => {
             <span className={`classroom-live ${roomStarted ? 'ready' : ''}`}><i /> {roomStarted ? 'Ready' : 'Not started'}</span>
           </div>
           <div className="classroom-stage">
+            <div className="classroom-graphic" aria-hidden="true">
+              <span className="graphic-orbit orbit-a" />
+              <span className="graphic-orbit orbit-b" />
+              <span className="graphic-node node-a" />
+              <span className="graphic-node node-b" />
+              <div className="signal-bars"><i /><i /><i /><i /><i /><i /><i /></div>
+            </div>
             <video ref={videoRef} autoPlay muted playsInline />
             {!roomStarted && <div className="classroom-placeholder"><FaVideo /><span>Camera preview appears here</span></div>}
           </div>
@@ -102,7 +124,9 @@ const OnlineClass = () => {
             <button type="button" onClick={roomStarted ? () => toggleTrack('audio') : startRoom} aria-label={roomStarted ? 'Toggle microphone' : 'Start camera and microphone'}>{microphoneEnabled ? <FaMicrophone /> : <FaMicrophoneSlash />}<span>{roomStarted ? 'Mic' : 'Start'}</span></button>
             <button type="button" onClick={() => toggleTrack('video')} disabled={!roomStarted} aria-label="Toggle camera">{cameraEnabled ? <FaVideo /> : <FaVideoSlash />}<span>Camera</span></button>
             <button type="button" onClick={shareScreen} aria-label="Share screen"><FaDesktop /><span>Share</span></button>
+            {roomStarted && <button type="button" className="leave-preview" onClick={leavePreview} aria-label="Leave camera preview"><FaSignOutAlt /><span>Leave</span></button>}
           </div>
+          {mediaError && <p className="media-error" role="alert">{mediaError}</p>}
           <form className="classroom-chat" onSubmit={sendChat}>
             <div className="chat-heading"><FaUsers /> <strong>Class chat</strong><small>{chatMessages.length} messages</small></div>
             <div className="chat-messages">{chatMessages.length ? chatMessages.map((message, index) => <p key={`${message.author}-${index}`}><strong>{message.author}:</strong> {message.text}</p>) : <span>No messages yet. Say hello to the class.</span>}</div>

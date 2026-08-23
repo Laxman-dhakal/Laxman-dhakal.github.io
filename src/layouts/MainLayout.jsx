@@ -8,7 +8,7 @@ import QuickContact from '../components/QuickContact/QuickContact';
 const MainLayout = ({ theme, toggleTheme, mounted, scrollY }) => (
   <>
     <Navbar theme={theme} toggleTheme={toggleTheme} mounted={mounted} scrollY={scrollY} />
-    <Outlet />
+    <div id="main-content"><Outlet /></div>
     <ScrollToTop />
     <AICopilot />
     <InstallPrompt />

@@ -16,8 +16,8 @@ const About = () => (
         </div>
       </motion.div>
       <motion.div className="about-page-copy" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-        <p className="section-intro">I create premium digital products and websites built for growth, clarity and strong user experiences.</p>
-        <p>My experience spans modern React development, thoughtful design systems, responsive interfaces and polished front-end architecture. I work with startups, agencies and professionals to deliver websites that feel refined and perform reliably.</p>
+        <p className="section-intro">I am an IT professional and web developer with a background in computer science, software development and practical technical coordination.</p>
+        <p>My experience includes IT software development, technical support, responsive web interfaces, project coordination and problem solving. I am currently pursuing a Bachelor of Computer Science and Information Technology at Quantum University, building on my Diploma in Computer Science and Engineering.</p>
       </motion.div>
     </section>
   </main>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa';
 import { fadeRight, staggerContainer } from '../../motion/variants';
@@ -16,9 +16,9 @@ const navLinks = [
   { id: 'blog', label: 'Blog' },
   { id: 'contact', label: 'Contact' }
 ];
-const onlineClassUrl = import.meta.env.VITE_ONLINE_CLASS_URL || '/online-class';
-
 const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('home');
   const scrollProgress = typeof document === 'undefined'
@@ -41,6 +41,14 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
   }, [scrollY]);
 
   useEffect(() => {
+    if (location.pathname !== '/' || !location.hash) return undefined;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash]);
+
+  useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
         setMenuOpen(false);
@@ -52,9 +60,15 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
 
   const handleNavigate = (id) => {
     setMenuOpen(false);
+    if (id === 'blog') {
+      navigate('/blog');
+      return;
+    }
     const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      navigate(`/#${id}`);
     }
   };
 
@@ -107,7 +121,6 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
           <Link to="/login" className="button secondary navbar-admin">
             Admin
           </Link>
-          <a href={onlineClassUrl} className="button secondary navbar-class">Online Class</a>
           <a href="#contact" className="button primary navbar-cta">
             Hire Me
           </a>
@@ -137,11 +150,6 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
               </button>
             </motion.li>
           ))}
-          <motion.li variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}>
-            <a href={onlineClassUrl} className="mobile-admin-link" onClick={() => setMenuOpen(false)}>
-              Online Class
-            </a>
-          </motion.li>
           <motion.li variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}>
             <Link to="/login" className="mobile-admin-link" onClick={() => setMenuOpen(false)}>
               Admin Login

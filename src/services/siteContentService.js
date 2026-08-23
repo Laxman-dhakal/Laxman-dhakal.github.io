@@ -131,8 +131,8 @@ const defaultSiteContent = {
   },
   about: {
     title: 'About Me',
-    intro: 'I am a passionate web developer focused on building modern, responsive and user-friendly digital experiences.',
-    text: 'My work blends clean code, thoughtful animation and accessible layouts. I enjoy partnering with brands and teams to create websites that feel engaging and professional.',
+    intro: 'I am an IT professional and web developer with a background in computer science, software development and practical technical coordination.',
+    text: 'My experience combines responsive web development, programming fundamentals, problem solving, project coordination and technical support. I enjoy building clear, useful digital experiences while continuously growing through real-world projects and professional learning.',
     stats: [
       { value: '50+', label: 'Projects' },
       { value: '3+', label: 'Years Experience' },
