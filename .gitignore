@@ -11,6 +11,7 @@
 # production
 /build
 /dist
+website-hosting-upload.zip
 
 # misc
 .DS_Store

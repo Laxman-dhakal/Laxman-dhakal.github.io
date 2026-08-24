@@ -1,27 +1,26 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
-import faq from '../data/faq';
 import { fadeUp } from '../motion/variants';
-
-const categories = ['All', 'General', 'Services', 'Projects', 'Technology', 'Pricing', 'Support'];
+import { getSiteContent } from '../services/siteContentService';
 
 const FAQ = () => {
+  const { pageCopy, faqList, faqCategories } = getSiteContent();
   const [activeCategory, setActiveCategory] = useState('All');
   const [openId, setOpenId] = useState(1);
 
-  const filtered = activeCategory === 'All' ? faq : faq.filter((item) => item.category === activeCategory);
+  const filtered = activeCategory === 'All' ? faqList : faqList.filter((item) => item.category === activeCategory);
 
   return (
     <main className="page-content">
       <section className="page-hero faq-hero">
         <div className="container">
-          <SectionHeading title="FAQ" subtitle="Answers to common questions about services, projects and collaboration." />
+          <SectionHeading title={pageCopy.faqPage.title} subtitle={pageCopy.faqPage.subtitle} />
         </div>
       </section>
       <section className="container faq-page-grid">
         <div className="faq-page-filters">
-          {categories.map((category) => (
+          {faqCategories.map((category) => (
             <button key={category} type="button" className={category === activeCategory ? 'active' : ''} onClick={() => setActiveCategory(category)}>
               {category}
             </button>

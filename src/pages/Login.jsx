@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaGoogle, FaGithub, FaHome } from 'react-icons/fa';
 import useAuth from '../auth/useAuth.js';
+import { getSiteContent } from '../services/siteContentService';
 import './AuthPages.css';
 
 const Login = () => {
@@ -10,6 +11,8 @@ const Login = () => {
   const [form, setForm] = useState({ email: '', password: '', remember: false });
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState('');
+  const { interactiveCopy } = getSiteContent();
+  const copy = interactiveCopy.auth.login;
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -30,28 +33,28 @@ const Login = () => {
     <div className="auth-shell">
       <div className="auth-card auth-card-left">
         <div className="auth-hero">
-          <span className="badge">Welcome Back</span>
-          <h1>Sign in to continue to your dashboard.</h1>
-          <p>Access your admin workspace, manage projects, messages and view analytics with a polished SaaS experience.</p>
+          <span className="badge">{copy.badge}</span>
+          <h1>{copy.heroTitle}</h1>
+          <p>{copy.heroText}</p>
         </div>
       </div>
       <div className="auth-card auth-card-right">
         <div className="auth-form-shell">
           <div className="auth-form-header">
-            <h2>Login</h2>
+            <h2>{copy.title}</h2>
             <Link to="/" className="auth-home-tab">
               <FaHome className="auth-home-icon" />
               Return Home
             </Link>
           </div>
-          <p>Enter your credentials to sign in. Use <strong>admin@laxmandhakal.com</strong> / <strong>Admin123</strong> to access the dashboard.</p>
+          <p>{copy.intro}</p>
           <form className="auth-form" onSubmit={handleSubmit}>
             <label>
-              Email Address
+              {copy.email}
               <input type="email" name="email" value={form.email} onChange={handleChange} required />
             </label>
             <label>
-              Password
+              {copy.password}
               <div className="password-field">
                 <input
                   type={visible ? 'text' : 'password'}
@@ -72,7 +75,7 @@ const Login = () => {
               <Link to="/forgot-password" className="link-muted">Forgot Password?</Link>
             </div>
             {error && <p className="form-error">{error}</p>}
-            <button type="submit" className="button primary auth-submit">Login</button>
+            <button type="submit" className="button primary auth-submit">{copy.submit}</button>
             <Link to="/" className="button secondary auth-submit">Back to Home</Link>
           </form>
           <div className="auth-divider">or continue with</div>

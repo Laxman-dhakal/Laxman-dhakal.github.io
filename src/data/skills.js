@@ -1,41 +1,175 @@
-const skills = [
-  { id: 1, category: 'Frontend', items: [
-      { name: 'HTML', level: 95 },
-      { name: 'CSS', level: 92 },
-      { name: 'JavaScript', level: 90 },
-      { name: 'React', level: 90 }
-    ]
+const courses = [
+  {
+    id: 1,
+    category: 'Computer Skills',
+    title: 'Microsoft Word 2010',
+    description: 'Learn practical document creation, formatting, editing, and productivity workflows in Microsoft Word.',
+    duration: '4-5 hrs',
+    learners: '66,603',
+    rating: 4.8,
+    level: 'Beginner',
+    type: 'Certificate',
+    badge: 'Popular',
+    color: 'teal'
   },
-  { id: 2, category: 'Backend', items: [
-      { name: 'Node.js', level: 82 },
-      { name: 'Express', level: 80 },
-      { name: 'REST API', level: 88 }
-    ]
+  {
+    id: 2,
+    category: 'Computer Skills',
+    title: 'CAD for Kids - Tinkercad for Beginners',
+    description: 'Discover beginner-friendly computer-aided design and creative 3D modeling with Tinkercad.',
+    duration: '2-3 hrs',
+    learners: '5,490',
+    rating: 4.7,
+    level: 'Beginner',
+    type: 'Certificate',
+    badge: 'New',
+    color: 'indigo'
   },
-  { id: 3, category: 'Database', items: [
-      { name: 'MongoDB', level: 84 },
-      { name: 'MySQL', level: 78 }
-    ]
+  {
+    id: 3,
+    category: 'Operating Systems',
+    title: 'Operating Systems - Introduction to Memory Management',
+    description: 'Understand the fundamentals of memory management and how operating systems handle resources.',
+    duration: '2-3 hrs',
+    learners: '8,985',
+    rating: 4.7,
+    level: 'Beginner',
+    type: 'Certificate',
+    badge: 'Featured',
+    color: 'orange'
   },
-  { id: 4, category: 'Tools', items: [
-      { name: 'Git', level: 88 },
-      { name: 'GitHub', level: 90 },
-      { name: 'Figma', level: 85 }
-    ]
+  {
+    id: 4,
+    category: 'Programming',
+    title: 'Introduction to Python',
+    description: 'Build a strong foundation in Python programming with practical syntax, logic, and beginner projects.',
+    duration: '3-4 hrs',
+    learners: '49,235',
+    rating: 4.8,
+    level: 'Beginner',
+    type: 'Certificate',
+    badge: 'Popular',
+    color: 'sky'
   },
-  { id: 5, category: 'Languages', items: [
-      { name: 'English', level: 88 },
-      { name: 'Nepali', level: 98 },
-      { name: 'Hindi', level: 86 }
-    ]
+  {
+    id: 5,
+    category: 'Programming',
+    title: 'Basics of JavaScript',
+    description: 'Learn JavaScript fundamentals and the core concepts used to create interactive web experiences.',
+    duration: '4-5 hrs',
+    learners: '17,295',
+    rating: 4.8,
+    level: 'Beginner',
+    type: 'Certificate',
+    badge: 'Popular',
+    color: 'rose'
   },
-  { id: 6, category: 'Professional', items: [
-      { name: 'Problem Solving', level: 90 },
-      { name: 'Project Management', level: 82 },
-      { name: 'MS Office / Excel', level: 88 },
-      { name: 'Presentation', level: 84 }
-    ]
+  {
+    id: 6,
+    category: 'Microsoft Office',
+    title: 'MS Outlook 2013 Basic',
+    description: 'Get started with email, calendars, contacts, and everyday communication workflows in Outlook.',
+    duration: '3-4 hrs',
+    learners: '5,004',
+    rating: 4.6,
+    level: 'Beginner',
+    type: 'Certificate',
+    badge: 'New',
+    color: 'violet'
+  },
+  {
+    id: 7,
+    category: 'Microsoft Office',
+    title: 'Diploma in MS PowerPoint 2013 Advanced',
+    description: 'Create polished presentations using advanced PowerPoint tools, layouts, and presentation techniques.',
+    duration: '10-15 hrs',
+    learners: '4,634',
+    rating: 4.7,
+    level: 'Beginner',
+    type: 'Diploma',
+    badge: 'Diploma',
+    color: 'teal'
+  },
+  {
+    id: 8,
+    category: 'Microsoft Office',
+    title: 'Diploma in MS PowerPoint 2013 Basic',
+    description: 'Learn the essential tools for building clear, attractive, and effective PowerPoint presentations.',
+    duration: '10-15 hrs',
+    learners: '13,551',
+    rating: 4.7,
+    level: 'Beginner',
+    type: 'Diploma',
+    badge: 'Popular',
+    color: 'indigo'
+  },
+  {
+    id: 9,
+    category: 'Microsoft Office',
+    title: 'Diploma in MS Outlook 2013 Advanced',
+    description: 'Develop advanced Outlook skills for organization, communication, scheduling, and productivity.',
+    duration: '10-15 hrs',
+    learners: '3,169',
+    rating: 4.6,
+    level: 'Beginner',
+    type: 'Diploma',
+    badge: 'Diploma',
+    color: 'orange'
+  },
+  {
+    id: 10,
+    category: 'Business',
+    title: 'IT Skills for Business',
+    description: 'Build practical technology skills for communication, productivity, collaboration, and modern business work.',
+    duration: '3-4 hrs',
+    learners: '21,779',
+    rating: 4.8,
+    level: 'Intermediate',
+    type: 'Certificate',
+    badge: 'Trending',
+    color: 'sky'
+  },
+  {
+    id: 11,
+    category: 'Python',
+    title: 'An Introduction to NumPy Library for Python',
+    description: 'Explore numerical computing with NumPy arrays, operations, and practical Python data workflows.',
+    duration: '2-3 hrs',
+    learners: '2,408',
+    rating: 4.7,
+    level: 'Advanced',
+    type: 'Certificate',
+    badge: 'Advanced',
+    color: 'rose'
+  },
+  {
+    id: 12,
+    category: 'Data Science',
+    title: 'Principal Component Analysis in Python and MATLAB',
+    description: 'Understand PCA concepts and apply dimensionality reduction techniques with Python and MATLAB.',
+    duration: '2-3 hrs',
+    learners: '1,197',
+    rating: 4.6,
+    level: 'Advanced',
+    type: 'Certificate',
+    badge: 'Advanced',
+    color: 'violet'
   }
 ];
 
-export default skills;
+export const courseCategories = [
+  'All Courses',
+  'Computer Skills',
+  'Operating Systems',
+  'Programming',
+  'Microsoft Office',
+  'Python',
+  'Business',
+  'Data Science',
+  'Design',
+  'English',
+  'Health',
+  'Personal Development'
+];
+
+export default courses;

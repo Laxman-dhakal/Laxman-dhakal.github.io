@@ -8,7 +8,9 @@ import ProtectedRoute from './auth/ProtectedRoute.jsx';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import About from './pages/About';
+import Skills from './pages/Skills';
 import Services from './pages/Services';
+import Experience from './pages/Experience';
 import Portfolio from './pages/Portfolio';
 import ProjectDetails from './pages/ProjectDetails';
 import FAQ from './pages/FAQ';
@@ -45,7 +47,9 @@ function PageMetadata() {
   const titles = {
     '/': 'Laxman Dhakal | Web Developer',
     '/about': 'About | Laxman Dhakal',
+    '/skills': 'Skills | Laxman Dhakal',
     '/services': 'Services | Laxman Dhakal',
+    '/experience': 'Experience | Laxman Dhakal',
     '/portfolio': 'Portfolio | Laxman Dhakal',
     '/blog': 'Blog | Laxman Dhakal',
     '/online-class': 'Online Class | Laxman Dhakal',
@@ -96,7 +100,9 @@ function App() {
             <Route path="/" element={<MainLayout theme={theme} toggleTheme={toggleTheme} mounted={mounted} scrollY={scrollY} />}>
               <Route index element={<Home />} />
               <Route path="about" element={<About />} />
+              <Route path="skills" element={<Skills />} />
               <Route path="services" element={<Services />} />
+              <Route path="experience" element={<Experience />} />
               <Route path="portfolio" element={<Portfolio />} />
               <Route path="portfolio/:id" element={<ProjectDetails />} />
               <Route path="faq" element={<FAQ />} />

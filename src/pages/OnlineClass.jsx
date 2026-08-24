@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaVideo, FaCopy, FaCalendarAlt, FaWhatsapp, FaArrowRight, FaClock, FaUsers, FaDesktop, FaMicrophone, FaMicrophoneSlash, FaVideoSlash, FaPaperPlane, FaSignOutAlt } from 'react-icons/fa';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
+import { getSiteContent } from '../services/siteContentService';
 import './OnlineClass.css';
 
 const meetUrl = import.meta.env.VITE_ONLINE_CLASS_URL || 'https://meet.google.com/new';
 
 const OnlineClass = () => {
+  const { pageCopy, interactiveCopy } = getSiteContent();
+  const copy = interactiveCopy.onlineClass;
   const [copied, setCopied] = useState(false);
   const [roomStarted, setRoomStarted] = useState(false);
   const [cameraEnabled, setCameraEnabled] = useState(true);
@@ -85,19 +88,19 @@ const OnlineClass = () => {
     <main className="page-content online-class-page">
       <section className="page-hero">
         <div className="container">
-          <SectionHeading title="Online Class" subtitle="Join the live Google Meet session, access class details, and stay connected." />
+          <SectionHeading title={pageCopy.onlineClassPage.title} subtitle={pageCopy.onlineClassPage.subtitle} />
         </div>
       </section>
       <section className="container online-class-content">
         <div className="online-class-card glass-card">
           <div className="online-class-icon"><FaVideo /></div>
           <span className="online-class-status"><i /> Google Meet classroom</span>
-          <h2>Ready to join the class?</h2>
-          <p>Use the secure Google Meet room for live lessons, screen sharing, questions, and discussion.</p>
+          <h2>{copy.title}</h2>
+          <p>{copy.description}</p>
           <div className="class-session-meta">
-            <span><FaClock /> Next session: 7:00 PM</span>
-            <span><FaUsers /> Interactive group class</span>
-            <span><FaDesktop /> Screen sharing ready</span>
+            <span><FaClock /> {copy.sessionTime}</span>
+            <span><FaUsers /> {copy.sessionType}</span>
+            <span><FaDesktop /> {copy.screenSharing}</span>
           </div>
           <div className="online-class-actions">
             <a href={meetUrl} target="_blank" rel="noreferrer" className="button primary">Join Google Meet <FaArrowRight /></a>
@@ -106,7 +109,7 @@ const OnlineClass = () => {
         </div>
         <div className="classroom-panel glass-card">
           <div className="classroom-header">
-            <div><span className="classroom-label">Your classroom</span><h3>{roomStarted ? 'Device check complete' : 'Test your setup'}</h3></div>
+            <div><span className="classroom-label">{copy.classroomLabel}</span><h3>{roomStarted ? copy.readyTitle : copy.setupTitle}</h3></div>
             <span className={`classroom-live ${roomStarted ? 'ready' : ''}`}><i /> {roomStarted ? 'Ready' : 'Not started'}</span>
           </div>
           <div className="classroom-stage">
@@ -138,11 +141,9 @@ const OnlineClass = () => {
           <a href="https://wa.me/9779768458058" target="_blank" rel="noreferrer" className="class-tool glass-card"><FaWhatsapp /><span><strong>Ask on WhatsApp</strong><small>Get class support</small></span></a>
         </div>
         <div className="online-class-notes">
-          <h3>Before joining</h3>
+          <h3>{copy.beforeJoining}</h3>
           <ul>
-            <li>Use a stable internet connection and headphones.</li>
-            <li>Join a few minutes early and keep your microphone muted.</li>
-            <li>Use the chat or raise-hand feature for questions.</li>
+            {copy.notes.map((note) => <li key={note}>{note}</li>)}
           </ul>
         </div>
         <div className="online-class-schedule glass-card">

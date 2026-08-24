@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../auth/useAuth.js';
+import { getSiteContent } from '../services/siteContentService';
 import './AuthPages.css';
 
 const ResetPassword = () => {
@@ -9,6 +10,8 @@ const ResetPassword = () => {
   const [form, setForm] = useState({ email: '', password: '', confirmPassword: '' });
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const { interactiveCopy } = getSiteContent();
+  const copy = interactiveCopy.auth.reset;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -38,8 +41,8 @@ const ResetPassword = () => {
     <div className="auth-shell auth-simple-shell">
       <div className="auth-card auth-card-single">
         <div className="auth-form-shell">
-          <h2>Reset Password</h2>
-          <p>Enter your email and create a new password.</p>
+          <h2>{copy.title}</h2>
+          <p>{copy.intro}</p>
           <form className="auth-form" onSubmit={handleSubmit}>
             <label>
               Email Address
@@ -55,7 +58,7 @@ const ResetPassword = () => {
             </label>
             {error && <p className="form-error">{error}</p>}
             {message && <p className="auth-success">{message}</p>}
-            <button type="submit" className="button primary auth-submit">Reset Password</button>
+            <button type="submit" className="button primary auth-submit">{copy.submit}</button>
           </form>
           <button type="button" className="button secondary auth-submit" onClick={() => navigate('/login')}>Back to Login</button>
         </div>

@@ -21,7 +21,7 @@ const Services = () => {
       <div className="container">
         <div className="section-title">
           <span>03.</span>
-          <h2>{services.title || 'Services'}</h2>
+          <h2>Skills</h2>
         </div>
         <motion.div className="services-grid" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           {(servicesCatalog || []).map((item, index) => {

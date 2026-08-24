@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaArrowRight, FaCheckCircle, FaLayerGroup } from 'react-icons/fa';
 import { fadeUp } from '../../motion/variants';
 import { getSiteContent } from '../../services/siteContentService';
 import { sendContactMessage } from '../../services/contactService';
@@ -13,6 +14,8 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [errors, setErrors] = useState({});
+  const [brief, setBrief] = useState({ type: 'Website', timeline: '2–4 weeks', budget: 'Let’s discuss' });
+  const [briefAdded, setBriefAdded] = useState(false);
   const { contact } = getSiteContent();
 
   const handleChange = (event) => {
@@ -59,6 +62,13 @@ const Contact = () => {
     }
   };
 
+  const addBriefToMessage = () => {
+    const summary = `Project brief\n• Type: ${brief.type}\n• Timeline: ${brief.timeline}\n• Budget: ${brief.budget}\n\nI’d like to discuss this project and the next steps.`;
+    setForm((current) => ({ ...current, subject: current.subject || `${brief.type} project inquiry`, message: current.message ? `${current.message}\n\n${summary}` : summary }));
+    setBriefAdded(true);
+    window.setTimeout(() => setBriefAdded(false), 2600);
+  };
+
   return (
     <section className="contact-section" id="contact">
       <div className="container contact-grid">
@@ -86,14 +96,15 @@ const Contact = () => {
           </div>
         </motion.div>
         <motion.div className="contact-side" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-          <div className="contact-cta glass-card">
-            <span className="cta-label">Ready to launch?</span>
-            <h3>Let’s craft a website that feels premium, performs fast, and converts visitors into clients.</h3>
-            <div className="cta-meta">
-              <span><i /> Reply within 24 hours</span>
-              <span><i /> Free discovery call</span>
+          <div className="project-brief glass-card">
+            <div className="project-brief-heading"><span><FaLayerGroup /></span><div><small>PROJECT PLANNER</small><h3>Build a quick brief</h3></div></div>
+            <p>Choose a few details and add a polished starting brief to your message.</p>
+            <div className="project-brief-fields">
+              <label>Project type<select value={brief.type} onChange={(event) => setBrief((current) => ({ ...current, type: event.target.value }))}><option>Website</option><option>Landing Page</option><option>Web Application</option><option>UI/UX Design</option><option>Website Refresh</option></select></label>
+              <label>Timeline<select value={brief.timeline} onChange={(event) => setBrief((current) => ({ ...current, timeline: event.target.value }))}><option>ASAP</option><option>2–4 weeks</option><option>1–2 months</option><option>Flexible</option></select></label>
+              <label>Budget<select value={brief.budget} onChange={(event) => setBrief((current) => ({ ...current, budget: event.target.value }))}><option>Let’s discuss</option><option>Under $500</option><option>$500–$1,500</option><option>$1,500+</option></select></label>
             </div>
-            <a href={`mailto:${contact.email}`} className="button primary">Book a Call</a>
+            <button type="button" className="project-brief-button" onClick={addBriefToMessage}>{briefAdded ? <><FaCheckCircle /> Added to your message</> : <>Add brief to message <FaArrowRight /></>}</button>
           </div>
           <motion.form className="contact-form glass-card" onSubmit={handleSubmit} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
             {submitted && <div className="contact-success">Message sent successfully!</div>}

@@ -7,13 +7,12 @@ import './Navbar.css';
 
 const navLinks = [
   { id: 'home', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'services', label: 'Services' },
+  { id: 'online-courses', label: 'Online Courses' },
+  { id: 'services', label: 'Skills' },
   { id: 'experience', label: 'Experience' },
-  { id: 'portfolio', label: 'Portfolio' },
   { id: 'faq', label: 'FAQ' },
   { id: 'blog', label: 'Blog' },
+  { id: 'about', label: 'About' },
   { id: 'contact', label: 'Contact' }
 ];
 const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
@@ -26,6 +25,10 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
     : Math.min((scrollY / Math.max(document.documentElement.scrollHeight - window.innerHeight, 1)) * 100, 100);
 
   useEffect(() => {
+    if (location.pathname !== '/') {
+      setActive(location.pathname.slice(1).split('/')[0] || 'home');
+      return undefined;
+    }
     const handleScroll = () => {
       const current = navLinks.reduce((section, item) => {
         const element = document.getElementById(item.id);
@@ -38,7 +41,7 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
     };
 
     handleScroll();
-  }, [scrollY]);
+  }, [location.pathname, scrollY]);
 
   useEffect(() => {
     if (location.pathname !== '/' || !location.hash) return undefined;
@@ -62,6 +65,10 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
     setMenuOpen(false);
     if (id === 'blog') {
       navigate('/blog');
+      return;
+    }
+    if (id === 'online-class') {
+      navigate('/online-class');
       return;
     }
     const target = document.getElementById(id);
@@ -121,9 +128,9 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
           <Link to="/login" className="button secondary navbar-admin">
             Admin
           </Link>
-          <a href="#contact" className="button primary navbar-cta">
+          <Link to="/contact" className="button primary navbar-cta">
             Hire Me
-          </a>
+          </Link>
           <button
             type="button"
             className="menu-toggle"

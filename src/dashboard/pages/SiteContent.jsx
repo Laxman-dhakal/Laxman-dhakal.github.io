@@ -23,6 +23,16 @@ const SiteContent = () => {
     setTimeout(() => setSaved(false), 2200);
   };
 
+  const pageFields = [
+    ['about', 'About page'],
+    ['servicesPage', 'Services page'],
+    ['portfolioPage', 'Portfolio page'],
+    ['faqPage', 'FAQ page'],
+    ['onlineClassPage', 'Online Class page'],
+    ['privacyPage', 'Privacy page'],
+    ['termsPage', 'Terms page']
+  ];
+
   return (
     <div className="dashboard-page">
       <section className="dashboard-hero dashboard-hero-compact">
@@ -73,6 +83,23 @@ const SiteContent = () => {
               Primary CTA
               <input value={content.hero.primaryCta} onChange={(event) => updateSection('hero', 'primaryCta', event.target.value)} />
             </label>
+          </div>
+
+          <div className="dashboard-form-grid">
+            <div className="full-width content-group-heading">Dedicated page copy</div>
+            {pageFields.map(([key, label]) => (
+              <div className="content-page-fields full-width" key={key}>
+                <strong>{label}</strong>
+                <label>
+                  Page title
+                  <input value={content.pageCopy?.[key]?.title || ''} onChange={(event) => updateSection('pageCopy', key, { ...(content.pageCopy?.[key] || {}), title: event.target.value })} />
+                </label>
+                <label>
+                  Page subtitle
+                  <textarea rows={2} value={content.pageCopy?.[key]?.subtitle || ''} onChange={(event) => updateSection('pageCopy', key, { ...(content.pageCopy?.[key] || {}), subtitle: event.target.value })} />
+                </label>
+              </div>
+            ))}
           </div>
 
           <div className="dashboard-form-grid">

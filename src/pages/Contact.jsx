@@ -4,8 +4,10 @@ import SectionHeading from '../components/SectionHeading/SectionHeading';
 import { fadeUp } from '../motion/variants';
 import { sendContactMessage } from '../services/contactService';
 import { trackMessage } from '../services/analyticsService';
+import { getSiteContent } from '../services/siteContentService';
 
 const Contact = () => {
+  const { contact, pageCopy } = getSiteContent();
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
@@ -51,17 +53,17 @@ const Contact = () => {
     <main className="page-content">
       <section className="page-hero contact-hero">
         <div className="container">
-          <SectionHeading title="Let's Start a Conversation" subtitle="Reach out to discuss your next project, collaboration or idea." />
+          <SectionHeading title={pageCopy.contact?.title || contact.title} subtitle={pageCopy.contact?.subtitle || 'Reach out to discuss your next project, collaboration or idea.'} />
         </div>
       </section>
       <section className="container contact-page-grid">
         <motion.div className="contact-details" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <div className="contact-card">
             <h3>Contact Information</h3>
-            <p>Email: laxmandhakal000@gmail.com</p>
-            <p>Phone: +977-9768458058</p>
-            <p>Location: Nepalgunj, Banke, Nepal</p>
-            <p>Working Hours: Mon - Fri, 9:00 AM - 6:00 PM</p>
+            <p>Email: {contact.email}</p>
+            <p>Phone: {contact.phone}</p>
+            <p>Location: {contact.location}</p>
+            <p>{contact.description}</p>
           </div>
         </motion.div>
         <motion.div className="contact-form-page" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>

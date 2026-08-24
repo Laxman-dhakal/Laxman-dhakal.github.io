@@ -1,6 +1,7 @@
 .services-section {
-  padding-top: 120px;
-  padding-bottom: 120px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--border);
 }
 
 .services-grid {

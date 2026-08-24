@@ -1,78 +1,147 @@
-import { useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { fadeUp, staggerContainer } from '../../motion/variants';
-import projectsData from '../../data/projects';
-import PortfolioModal from './PortfolioModal';
-import './Portfolio.css';
+import { motion } from 'framer-motion';
+import courses, { courseCategories } from '../../data/skills';
+import '../Skills/Skills.css';
 
-const categories = ['All', 'Web', 'React', 'Design', 'Application'];
+const filterOptions = ['Course category', 'Level', 'Duration', 'Language', 'Certificate'];
+const sortOptions = ['Most Popular', 'Newest', 'Highest Rated', 'Shortest Duration'];
 
 const Portfolio = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const projects = useMemo(() => {
-    const query = searchTerm.trim().toLowerCase();
-    return projectsData.filter((project) => {
-      const matchesCategory = activeCategory === 'All' || project.category === activeCategory;
-      const searchableText = [project.title, project.description, project.category, ...(project.technologies || [])].join(' ').toLowerCase();
-      return matchesCategory && (!query || searchableText.includes(query));
-    });
-  }, [activeCategory, searchTerm]);
-
   return (
-    <section className="portfolio-section" id="portfolio">
+    <section className="skills-section" id="portfolio">
       <div className="container">
-        <div className="section-title">
-          <span>05.</span>
-          <h2>Portfolio</h2>
-        </div>
-        <div className="portfolio-filters">
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => setActiveCategory(category)}
-              className={category === activeCategory ? 'active' : ''}
-              aria-label={`Show ${category} projects`}
-            >
-              <span>{category}</span>
-              <small>{category === 'All' ? projectsData.length : projectsData.filter((project) => project.category === category).length}</small>
-            </button>
-          ))}
-          <label className="portfolio-search">
-            <span className="sr-only">Search projects</span>
-            <input value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Search projects..." />
-          </label>
-        </div>
-        <p className="portfolio-result-count">Showing {projects.length} of {projectsData.length} projects</p>
-        <motion.div className="portfolio-grid" variants={staggerContainer} initial="hidden" animate="visible">
-          {projects.map((project) => (
-            <motion.article key={project.id} className="portfolio-card" variants={fadeUp} whileHover={{ y: -6 }}>
-              <div className="portfolio-image">
-                <img src={project.image} alt={project.title} loading="lazy" />
-              </div>
-              <div className="portfolio-content">
-                <span>{project.category}</span>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <div className="portfolio-tags">
-                  {project.technologies.slice(0, 3).map((tech) => (
-                    <span key={tech}>{tech}</span>
-                  ))}
-                </div>
-                <button type="button" className="button secondary" onClick={() => setSelectedProject(project)}>
-                  View Project
-                </button>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
-        {!projects.length && <div className="portfolio-empty">No projects match your search.</div>}
-      </div>
+        <div className="course-directory">
+          <header className="course-header">
+            <div className="course-brand">
+              <span className="course-brand__mark">L</span>
+              <span>LearnHub</span>
+            </div>
 
-      <AnimatePresence>{selectedProject && <PortfolioModal project={selectedProject} onClose={() => setSelectedProject(null)} />}</AnimatePresence>
+            <nav className="course-nav" aria-label="Course navigation">
+              <a href="#">Discover</a>
+              <a href="#">Career Paths</a>
+              <a href="#">Pricing</a>
+              <a href="#">Resources</a>
+            </nav>
+
+            <div className="course-actions">
+              <button type="button" className="btn btn-ghost">Login</button>
+              <button type="button" className="btn btn-primary">Start Learning Free</button>
+            </div>
+          </header>
+
+          <div className="course-hero">
+            <div>
+              <span className="eyebrow">Online learning platform</span>
+              <h2>All Courses</h2>
+              <p>Explore practical, beginner-friendly courses designed to help you build skills for modern work and growth.</p>
+            </div>
+            <div className="hero-cta">
+              <button type="button" className="btn btn-primary">Browse Courses</button>
+            </div>
+          </div>
+
+          <div className="course-toolbar">
+            <label className="search-box" aria-label="Search courses">
+              <span>⌕</span>
+              <input type="text" placeholder="Search courses, topics, skills..." />
+            </label>
+
+            <div className="sort-box">
+              <span>Sort by</span>
+              <select defaultValue="Most Popular">
+                {sortOptions.map((option) => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="course-main">
+            <aside className="course-sidebar">
+              <div className="sidebar-panel">
+                <h3>Filters</h3>
+                {filterOptions.map((filter) => (
+                  <div key={filter} className="filter-group">
+                    <label>{filter}</label>
+                    <div className="filter-value">Any</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="sidebar-panel sidebar-panel--accent">
+                <h3>Popular Topics</h3>
+                <ul>
+                  <li>Excel</li>
+                  <li>SEO</li>
+                  <li>Python</li>
+                  <li>UX Design</li>
+                </ul>
+              </div>
+            </aside>
+
+            <div className="course-grid">
+              {courseCategories.map((category, index) => (
+                category !== 'All Courses' && (
+                  <button key={category} type="button" className={`chip ${index === 0 ? 'chip--active' : ''}`}>
+                    {category}
+                  </button>
+                )
+              ))}
+
+              <div className="course-cards">
+                {courses.map((course, index) => (
+                  <motion.article
+                    key={course.id}
+                    className="course-card"
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.4, delay: index * 0.06 }}
+                  >
+                    <div className={`course-card__thumb course-card__thumb--${course.color}`}>
+                      <span className="badge">{course.badge}</span>
+                    </div>
+
+                    <div className="course-card__body">
+                      <div className="course-meta-row">
+                        <span className="course-category">{course.category}</span>
+                        <span className="course-rating">★ {course.rating}</span>
+                      </div>
+
+                      <h3>{course.title}</h3>
+                      <p>{course.description}</p>
+
+                      <div className="course-stats">
+                        <span>{course.duration}</span>
+                        <span>{course.learners} learners</span>
+                        <span>{course.level}</span>
+                      </div>
+
+                      <button type="button" className="course-view-btn">View Course</button>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="course-footer-row">
+            <div className="course-stat">
+              <strong>48+</strong>
+              <span>Expert-led tracks</span>
+            </div>
+            <div className="course-stat">
+              <strong>94%</strong>
+              <span>Career growth</span>
+            </div>
+            <div className="course-stat">
+              <strong>2.1k</strong>
+              <span>New learners this week</span>
+            </div>
+            <button type="button" className="btn btn-primary btn-large">Load More Courses</button>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
