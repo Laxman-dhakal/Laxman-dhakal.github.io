@@ -1,1 +1,117 @@
-.cursor-spotlight { position: fixed; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(300px circle at var(--spotlight-x, -500px) var(--spotlight-y, -500px), rgba(99,102,241,.09), transparent 62%); }.dark .cursor-spotlight { background: radial-gradient(320px circle at var(--spotlight-x, -500px) var(--spotlight-y, -500px), rgba(56,189,248,.08), transparent 62%); }@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .cursor-spotlight { display: none; } }
+/* Spotlight gradient */
+.cursor-spotlight {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(350px circle at var(--spotlight-x, -500px) var(--spotlight-y, -500px), rgba(99, 102, 241, 0.07), transparent 62%);
+}
+
+.dark .cursor-spotlight {
+  background: radial-gradient(380px circle at var(--spotlight-x, -500px) var(--spotlight-y, -500px), rgba(56, 189, 248, 0.06), transparent 62%);
+}
+
+/* Trail glow */
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.06), transparent 70%);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.dark .cursor-trail {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.06), transparent 70%);
+}
+
+/* Outer ring — spring physics follow */
+.cursor-outer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  border: 1.5px solid rgba(99, 102, 241, 0.35);
+  will-change: transform;
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, border-radius 0.3s ease, background 0.3s ease;
+}
+
+.dark .cursor-outer {
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+/* Inner dot — instant follow */
+.cursor-inner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  will-change: transform;
+  transition: width 0.25s ease, height 0.25s ease, border-radius 0.25s ease, background 0.25s ease;
+}
+
+/* Hover states: link */
+.cursor-outer.cursor-link {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(99, 102, 241, 0.5);
+  background: rgba(99, 102, 241, 0.06);
+}
+.dark .cursor-outer.cursor-link {
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(56, 189, 248, 0.05);
+}
+.cursor-inner.cursor-link {
+  width: 4px;
+  height: 4px;
+}
+
+/* Hover states: card */
+.cursor-outer.cursor-card {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(139, 92, 246, 0.3);
+  border-radius: 16px;
+  background: rgba(139, 92, 246, 0.04);
+}
+.cursor-inner.cursor-card {
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+}
+
+/* Hover states: image */
+.cursor-outer.cursor-image {
+  width: 64px;
+  height: 64px;
+  border: 2px dashed rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.04);
+}
+.cursor-inner.cursor-image {
+  width: 6px;
+  height: 6px;
+}
+
+/* Hide on touch / mobile / reduced motion */
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-spotlight,
+  .cursor-trail,
+  .cursor-outer,
+  .cursor-inner {
+    display: none;
+  }
+}

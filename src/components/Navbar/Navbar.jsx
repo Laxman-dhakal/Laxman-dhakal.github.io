@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -47,6 +47,17 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('home');
   const [soundMuted, setSoundMuted] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const prevScrollY = useRef(0);
+
+  useEffect(() => {
+    if (scrollY > prevScrollY.current && scrollY > 100 && !menuOpen) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+    prevScrollY.current = scrollY;
+  }, [scrollY, menuOpen]);
 
   useEffect(() => {
     setSoundMuted(isSoundMuted());
@@ -123,7 +134,7 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
 
   return (
     <motion.header
-      className={`navbar ${scrollY > 30 ? 'navbar-scrolled' : ''}`}
+      className={`navbar ${scrollY > 30 ? 'navbar-scrolled' : ''} ${hidden ? 'navbar-hidden' : ''}`}
       initial="hidden"
       animate="visible"
       variants={fadeRight}

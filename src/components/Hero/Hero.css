@@ -62,7 +62,17 @@
 }
 
 .hero-copy h1 span {
-  color: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: heroNameGradient 6s ease infinite;
+}
+
+@keyframes heroNameGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .hero-type {
