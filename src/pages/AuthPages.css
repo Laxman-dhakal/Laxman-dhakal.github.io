@@ -247,3 +247,28 @@
     order: 1;
   }
 }
+
+@media (max-width: 560px) {
+  .auth-shell {
+    padding: 20px 12px;
+  }
+
+  .auth-form-shell,
+  .auth-hero {
+    padding: 24px 18px;
+  }
+
+  .auth-socials {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .auth-home-tab {
+    width: 100%;
+  }
+}

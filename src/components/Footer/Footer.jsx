@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaFacebookF, FaTiktok, FaArrowUp, FaArrowRight, FaRegClock, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaFacebookF, FaTiktok, FaArrowUp, FaArrowRight, FaRegClock, FaEnvelope, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { fadeUp } from '../../motion/variants';
 import services from '../../data/services';
@@ -75,8 +75,11 @@ const Footer = () => {
       <div className="footer-bottom">
         <p>© 2026 Er.Laxman Dhakal. All Rights Reserved.</p>
         <div className="footer-bottom-links">
-          <a href="/privacy">Privacy</a>
-          <a href="/terms">Terms</a>
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/terms">Terms</Link>
+          <Link to="/login" className="footer-admin-link">
+            <FaLock /> Admin
+          </Link>
           <a href="/#home" className="back-to-top"><FaArrowUp /> Back to top</a>
         </div>
       </div>

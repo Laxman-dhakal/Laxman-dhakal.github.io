@@ -237,6 +237,17 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
             </span>
           </button>
 
+          {/* Admin Dashboard Portal Link */}
+          <Link
+            to="/login"
+            className="navbar-admin-btn"
+            title="Admin Portal (Manage Website)"
+            onClick={playClick}
+          >
+            <FaLock className="admin-lock-icon" />
+            <span>Admin</span>
+          </Link>
+
           {/* Hire Me CTA Button */}
           <Link
             to="/contact"

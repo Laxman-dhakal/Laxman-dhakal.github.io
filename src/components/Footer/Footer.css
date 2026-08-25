@@ -496,3 +496,22 @@
     gap: 10px;
   }
 }
+
+.footer-admin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--primary);
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  transition: all 0.25s ease;
+}
+
+.footer-admin-link:hover {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--primary);
+  transform: translateY(-1px);
+}

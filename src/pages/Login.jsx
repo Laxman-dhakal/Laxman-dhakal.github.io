@@ -48,6 +48,18 @@ const Login = () => {
             </Link>
           </div>
           <p>{copy.intro}</p>
+          <div className="admin-quick-helper" style={{ margin: '14px 0', padding: '12px 16px', background: 'rgba(99, 102, 241, 0.08)', borderRadius: '16px', border: '1px dashed rgba(99, 102, 241, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
+            <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+              🔑 <strong>Admin Credentials:</strong> <span style={{ color: 'var(--primary)', fontFamily: 'monospace' }}>admin@laxmandhakal.com</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setForm({ email: 'admin@laxmandhakal.com', password: 'Admin123', remember: true })}
+              style={{ padding: '6px 12px', fontSize: '0.78rem', fontWeight: 700, borderRadius: '8px', border: 'none', background: 'var(--primary)', color: '#fff', cursor: 'pointer' }}
+            >
+              Fill Credentials
+            </button>
+          </div>
           <form className="auth-form" onSubmit={handleSubmit}>
             <label>
               {copy.email}
