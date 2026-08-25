@@ -12,9 +12,9 @@ const Preloader = () => {
           clearInterval(interval);
           return 100;
         }
-        return prev + Math.random() * 15 + 5;
+        return prev + Math.random() * 25 + 15;
       });
-    }, 80);
+    }, 45);
     return () => clearInterval(interval);
   }, []);
 

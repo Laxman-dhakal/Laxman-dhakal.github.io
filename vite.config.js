@@ -7,5 +7,17 @@ export default defineConfig({
     watch: {
       ignored: ['**/image/**']
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-motion': ['framer-motion'],
+          'vendor-icons': ['react-icons']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
   }
 });

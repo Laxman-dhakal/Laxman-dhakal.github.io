@@ -16,28 +16,28 @@ import ProjectDetails from './pages/ProjectDetails';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 const Blog = lazy(() => import('./pages/Blog'));
+const Login = lazy(() => import('./pages/Login.jsx'));
+const Register = lazy(() => import('./pages/Register.jsx'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword.jsx'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword.jsx'));
+const DashboardLayout = lazy(() => import('./dashboard/DashboardLayout.jsx'));
+const DashboardHome = lazy(() => import('./dashboard/pages/DashboardHome.jsx'));
+const Analytics = lazy(() => import('./dashboard/pages/Analytics.jsx'));
+const Projects = lazy(() => import('./dashboard/pages/Projects.jsx'));
+const ServicesDashboard = lazy(() => import('./dashboard/pages/Services.jsx'));
+const MediaLibrary = lazy(() => import('./dashboard/pages/MediaLibrary.jsx'));
+const PageManager = lazy(() => import('./dashboard/pages/PageManager.jsx'));
+const SiteContent = lazy(() => import('./dashboard/pages/SiteContent.jsx'));
+const Messages = lazy(() => import('./dashboard/pages/Messages.jsx'));
+const Testimonials = lazy(() => import('./dashboard/pages/Testimonials.jsx'));
+const FAQDashboard = lazy(() => import('./dashboard/pages/FAQ.jsx'));
+const Profile = lazy(() => import('./dashboard/pages/Profile.jsx'));
+const Settings = lazy(() => import('./dashboard/pages/Settings.jsx'));
+const Notifications = lazy(() => import('./dashboard/pages/Notifications.jsx'));
+const Activity = lazy(() => import('./dashboard/pages/Activity.jsx'));
 import OnlineClass from './pages/OnlineClass';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
-import Login from './pages/Login.jsx';
-import Register from './pages/Register.jsx';
-import ForgotPassword from './pages/ForgotPassword.jsx';
-import ResetPassword from './pages/ResetPassword.jsx';
-import DashboardLayout from './dashboard/DashboardLayout.jsx';
-import DashboardHome from './dashboard/pages/DashboardHome.jsx';
-import Analytics from './dashboard/pages/Analytics.jsx';
-import Projects from './dashboard/pages/Projects.jsx';
-import ServicesDashboard from './dashboard/pages/Services.jsx';
-import MediaLibrary from './dashboard/pages/MediaLibrary.jsx';
-import PageManager from './dashboard/pages/PageManager.jsx';
-import SiteContent from './dashboard/pages/SiteContent.jsx';
-import Messages from './dashboard/pages/Messages.jsx';
-import Testimonials from './dashboard/pages/Testimonials.jsx';
-import FAQDashboard from './dashboard/pages/FAQ.jsx';
-import Profile from './dashboard/pages/Profile.jsx';
-import Settings from './dashboard/pages/Settings.jsx';
-import Notifications from './dashboard/pages/Notifications.jsx';
-import Activity from './dashboard/pages/Activity.jsx';
 import Preloader from './components/Preloader/Preloader';
 import { trackPageView } from './services/analyticsService';
 import NotFound from './pages/NotFound';
@@ -113,12 +113,12 @@ function App() {
               <Route path="privacy" element={<Privacy />} />
               <Route path="terms" element={<Terms />} />
             </Route>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="login" element={<Suspense fallback={<div className="route-loading" style={{ minHeight: '60vh', display: 'grid', placeItems: 'center', color: 'var(--text-secondary)' }}>Loading login...</div>}><Login /></Suspense>} />
+            <Route path="register" element={<Suspense fallback={<div className="route-loading" style={{ minHeight: '60vh', display: 'grid', placeItems: 'center', color: 'var(--text-secondary)' }}>Loading...</div>}><Register /></Suspense>} />
+            <Route path="forgot-password" element={<Suspense fallback={<div className="route-loading" style={{ minHeight: '60vh', display: 'grid', placeItems: 'center', color: 'var(--text-secondary)' }}>Loading...</div>}><ForgotPassword /></Suspense>} />
+            <Route path="reset-password" element={<Suspense fallback={<div className="route-loading" style={{ minHeight: '60vh', display: 'grid', placeItems: 'center', color: 'var(--text-secondary)' }}>Loading...</div>}><ResetPassword /></Suspense>} />
             <Route element={<ProtectedRoute />}>
-              <Route path="dashboard" element={<DashboardLayout />}>
+              <Route path="dashboard" element={<Suspense fallback={<div className="route-loading" style={{ minHeight: '80vh', display: 'grid', placeItems: 'center', color: 'var(--text-secondary)' }}>Loading dashboard...</div>}><DashboardLayout /></Suspense>}>
                 <Route index element={<DashboardHome />} />
                 <Route path="analytics" element={<Analytics />} />
                 <Route path="projects" element={<Projects />} />

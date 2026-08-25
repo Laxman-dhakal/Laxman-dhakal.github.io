@@ -150,9 +150,13 @@ const Navbar = ({ theme, toggleTheme, mounted, scrollY }) => {
           <div className="brand-avatar-container">
             <span className="avatar-neon-ring" />
             <img
-              src={new URL('../../../image/logo.png', import.meta.url).href}
+              src="/ld.png"
               alt="Er. Laxman Dhakal Logo"
               className="navbar-logo-img"
+              width="40"
+              height="40"
+              loading="eager"
+              decoding="async"
             />
             <span className="online-indicator" title="Available for Work" />
           </div>
