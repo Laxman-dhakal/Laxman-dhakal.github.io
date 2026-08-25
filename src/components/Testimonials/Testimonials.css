@@ -147,3 +147,38 @@
   background: rgba(99, 102, 241, 0.35);
   transform: scale(1.1);
 }
+
+@media (max-width: 640px) {
+  .testimonials-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .testimonial-shell {
+    padding: 24px 18px;
+    border-radius: 20px;
+  }
+
+  .testimonial-shell::before {
+    font-size: 6rem;
+    right: 14px;
+    top: -6px;
+  }
+
+  .testimonial-user img {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .testimonial-controls > button {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+}

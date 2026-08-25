@@ -173,3 +173,26 @@
   color: var(--primary);
   font: 700 0.65rem monospace;
 }
+
+@media (max-width: 640px) {
+  .command-menu-backdrop {
+    padding: 20px 12px;
+  }
+
+  .command-menu {
+    border-radius: 18px;
+  }
+
+  .command-menu-search {
+    padding: 12px 14px;
+  }
+
+  .command-menu-list {
+    max-height: 280px;
+    padding: 8px;
+  }
+
+  .command-menu footer {
+    display: none;
+  }
+}

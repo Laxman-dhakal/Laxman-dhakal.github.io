@@ -411,6 +411,9 @@
   top: calc(100% + 10px);
   left: 12px;
   right: 12px;
+  max-height: calc(100vh - 84px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
@@ -565,8 +568,12 @@
   }
 
   .brand-avatar-container {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-name {
+    font-size: 1rem;
   }
 
   .sound-toggle,
@@ -579,5 +586,28 @@
 
   .mobile-menu-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar-inner {
+    gap: 6px;
+  }
+
+  .navbar-brand {
+    gap: 8px;
+  }
+
+  .brand-badge-dev {
+    display: none;
+  }
+
+  .sound-toggle,
+  .theme-toggle,
+  .navbar-search-btn,
+  .menu-toggle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.82rem;
   }
 }

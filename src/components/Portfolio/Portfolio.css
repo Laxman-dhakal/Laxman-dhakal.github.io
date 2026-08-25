@@ -74,8 +74,8 @@
 /* 3D Tilt Card Grid */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr));
+  gap: clamp(20px, 3vw, 32px);
 }
 
 .portfolio-3d-card {
@@ -513,5 +513,64 @@
   .frame-tablet,
   .frame-mobile {
     width: 100%;
+  }
+
+  .device-modal-dialog {
+    padding: 24px 20px;
+    max-height: 85vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .portfolio-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .portfolio-category-filters {
+    overflow-x: auto;
+    padding-bottom: 6px;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .portfolio-filter-pill {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+
+  .portfolio-search {
+    width: 100%;
+  }
+
+  .portfolio-search input {
+    width: 100%;
+  }
+
+  .portfolio-card-content {
+    padding: 18px 16px;
+  }
+
+  .portfolio-thumb-wrapper {
+    height: 190px;
+  }
+
+  .device-modal-backdrop {
+    padding: 12px;
+  }
+
+  .device-modal-dialog {
+    padding: 18px 14px;
+    border-radius: 20px;
+  }
+
+  .modal-title-box h3 {
+    font-size: 1.15rem;
+  }
+
+  .simulator-viewport {
+    height: 240px;
   }
 }

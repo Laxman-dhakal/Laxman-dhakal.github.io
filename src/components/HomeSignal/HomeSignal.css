@@ -97,7 +97,81 @@
 @keyframes signalPulse { 50% { transform: scale(1.06) rotate(4deg); } }
 @keyframes cardFloat { 50% { transform: translateY(-10px); } }
 
-@media (max-width: 900px) { .signal-layout { grid-template-columns: 1fr; gap: 42px; }.signal-copy { max-width: 650px; }.signal-workspace { min-height: 370px; } }
-@media (max-width: 560px) { .home-signal { padding: 72px 16px; }.signal-workspace { min-height: 300px; }.browser-content { grid-template-columns: 42px 1fr; min-height: 214px; }.browser-sidebar { gap: 13px; }.browser-main { padding: 18px; }.browser-tiles { margin: 16px 0; }.browser-chart { height: 60px; }.signal-card { padding: 10px 12px; }.signal-card-design { right: -2%; }.signal-card-growth { left: -1%; }.signal-star { display: none; } }
+@media (max-width: 900px) {
+  .signal-layout {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+  .signal-copy {
+    max-width: 650px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .signal-copy p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .signal-workspace {
+    min-height: 370px;
+  }
+}
 
-@media (prefers-reduced-motion: reduce) { .signal-workspace::before, .signal-card { animation: none; } }
+@media (max-width: 560px) {
+  .home-signal {
+    padding: 56px 14px;
+    overflow: hidden;
+  }
+  .signal-copy h2 {
+    font-size: clamp(1.9rem, 8vw, 2.8rem);
+  }
+  .signal-workspace {
+    min-height: 280px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .signal-browser {
+    width: 100%;
+    transform: rotate(-2deg);
+  }
+  .browser-content {
+    grid-template-columns: 36px 1fr;
+    min-height: 200px;
+  }
+  .browser-sidebar {
+    gap: 10px;
+    padding-top: 12px;
+  }
+  .browser-main {
+    padding: 14px;
+  }
+  .browser-tiles {
+    margin: 12px 0;
+    gap: 8px;
+  }
+  .browser-chart {
+    height: 52px;
+    padding: 8px;
+  }
+  .signal-card {
+    padding: 8px 10px;
+    font-size: 0.68rem;
+  }
+  .signal-card-design {
+    right: 6px;
+    top: 4%;
+  }
+  .signal-card-growth {
+    left: 6px;
+    bottom: 2%;
+  }
+  .signal-star {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-workspace::before,
+  .signal-card {
+    animation: none;
+  }
+}

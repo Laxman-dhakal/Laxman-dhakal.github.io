@@ -119,6 +119,11 @@
 }
 
 @media (max-width: 760px) {
+  .experience-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
   .timeline {
     padding-left: 0;
   }
@@ -126,9 +131,20 @@
     display: none;
   }
   .timeline-item {
-    padding-left: 0;
+    padding: 16px 0;
   }
   .timeline-marker {
-    left: -9999px;
+    display: none;
+  }
+  .timeline-card {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+  .timeline-card h3 {
+    font-size: 1.2rem;
+  }
+  .timeline-tech span {
+    padding: 6px 12px;
+    font-size: 0.78rem;
   }
 }

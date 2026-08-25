@@ -255,5 +255,52 @@
 @media (max-width: 1024px) {
   .terminal-layout-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .terminal-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .terminal-box,
+  .code-vault {
+    height: 400px;
+    border-radius: 20px;
+  }
+
+  .terminal-body {
+    padding: 14px 12px;
+    font-size: 0.78rem;
+  }
+
+  .code-vault-body {
+    padding: 14px 12px;
+  }
+
+  .code-snippet {
+    font-size: 0.76rem;
+  }
+
+  .code-vault-header {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 10px;
+  }
+
+  .code-tab {
+    padding: 5px 8px;
+    font-size: 0.72rem;
+  }
+
+  .terminal-topbar {
+    padding: 10px 14px;
+  }
+
+  .terminal-input-row {
+    padding: 10px 14px;
   }
 }

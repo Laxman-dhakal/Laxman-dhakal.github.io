@@ -32,9 +32,9 @@
 
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(300px, 0.8fr) minmax(440px, 1.2fr);
+  grid-template-columns: minmax(min(100%, 280px), 0.85fr) minmax(min(100%, 380px), 1.15fr);
   align-items: center;
-  gap: 76px;
+  gap: clamp(32px, 5vw, 76px);
   max-width: 1180px;
   margin: 0 auto;
   position: relative;
@@ -324,6 +324,7 @@
   .about-visual {
     margin-bottom: 24px;
     justify-self: center;
+    width: min(100%, 380px);
   }
 
   .about-copy { text-align: center; }
@@ -335,12 +336,12 @@
 
 @media (max-width: 640px) {
   .about-section {
-    padding-top: 56px;
-    padding-bottom: 48px;
+    padding-top: 48px;
+    padding-bottom: 40px;
   }
 
   .about-badge {
-    left: 14px;
+    left: 8px;
     bottom: -14px;
     padding: 8px 12px;
     font-size: 0.7rem;
@@ -348,9 +349,36 @@
 
   .about-stats {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  .about-approach { grid-template-columns: 1fr; text-align: left; }
-  .about-approach-card { min-height: auto; }
-  .about-signature-card { right: -6px; bottom: 22px; }
+  .about-approach {
+    grid-template-columns: 1fr;
+    text-align: left;
+    gap: 10px;
+  }
+
+  .about-approach-card {
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .about-signature-card {
+    right: 4px;
+    bottom: 16px;
+    padding: 10px 12px;
+    font-size: 0.75rem;
+  }
+
+  .about-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .about-actions .button,
+  .about-talk-link {
+    justify-content: center;
+    width: 100%;
+  }
 }
